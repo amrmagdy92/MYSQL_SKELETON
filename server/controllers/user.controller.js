@@ -30,7 +30,7 @@ const list = () => {}
 const update = () => {}
 const remove = () => {}
 
-export default {
+export {
     create,
     read,
     list,
