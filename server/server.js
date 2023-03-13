@@ -4,7 +4,7 @@ import http from "http"
 import dotenv from "dotenv"
 
 import app from "./app"
-import config from "./config/config"
+import config from "./config/server.conf"
 
 dotenv.config()
 
