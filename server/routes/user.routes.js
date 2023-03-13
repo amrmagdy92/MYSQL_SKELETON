@@ -1,13 +1,13 @@
 import { Router } from "express"
 
-import userController from "../controllers/user.controller"
+import {create, read} from "../controllers/user.controller"
 
 const router = Router()
 
 router.route('/create')
-    .post(userController.create)
+    .post(create)
 
 router.route('/:id')
-    .get(userController.read)
+    .get(read)
 
 export default router
