@@ -12,10 +12,7 @@ const create = (req, res) => {
         .then(() => {
             res.json({msg: `The user ${req.body.user.firstName} ${req.body.user.lastName} was created successfully`})
         })
-        .catch((err) => {
-            const errors = getErrorMessage(err)
-            res.json({ errors })
-        })
+        .catch(err => res.json(getErrorMessage(err)))
 }
 const read = (req, res) => {
     const userID = req.params.id
