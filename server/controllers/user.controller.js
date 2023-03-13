@@ -6,7 +6,6 @@ const create = (req, res) => {
     user.salt = userHelpers.makeSalt()
     user = userHelpers.computeFullName(user)
     user.hashedPassword = userHelpers.encryptPassword(user.password, user.salt)
-    // res.send(user)
     userSchema
         .create(user)
         .then(() => {
