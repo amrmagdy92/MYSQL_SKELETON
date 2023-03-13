@@ -26,7 +26,14 @@ const read = (req, res) => {
         .then( user => res.json(user))
         .catch(err => res.json(getErrorMessage(err)))
 }
-const list = () => {}
+const list = (req, res) => {
+    userSchema
+        .findAll({
+            attributes: ["firstName", "lastName", "email", "phone"]
+        })
+        .then( user => res.json(user))
+        .catch(err => res.json(getErrorMessage(err)))
+}
 const update = () => {}
 const remove = () => {}
 
