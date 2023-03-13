@@ -7,4 +7,7 @@ const router = Router()
 router.route('/create')
     .post(userController.create)
 
+router.route('/:id')
+    .get(userController.read)
+
 export default router
