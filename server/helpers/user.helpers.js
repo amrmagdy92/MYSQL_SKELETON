@@ -23,7 +23,7 @@ function computeFullName (user) {
     }
 }
 
-export default {
+export {
     encryptPassword,
     makeSalt,
     computeFullName
