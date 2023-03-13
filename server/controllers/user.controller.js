@@ -46,9 +46,11 @@ const remove = async (req, res) => {
         })
         .catch(err => res.json(getErrorMessage(err)))
 
-    userSchema.destroy({ where: { id: userID } })
-        .then( () => {res.json({msg: `The user with ID ${userID} has been deleted successfully.`})})
-        .catch(err => res.json(getErrorMessage(err)))
+    if (userID) {
+        userSchema.destroy({ where: { id: userID } })
+            .then( () => {res.json({msg: `The user with ID ${userID} has been deleted successfully.`})})
+            .catch(err => res.json(getErrorMessage(err)))
+    }
 }
 
 export {
