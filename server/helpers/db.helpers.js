@@ -18,9 +18,9 @@ sequelize
 const getErrorMessage = (receivedError) => {
     const errorMessages = {}
     for (let i = 0; i < receivedError.errors.length; i++) {
-        path = receivedError.errors[i].path
-        msg = receivedError.errors[i].message
-        errorMessages.path = msg
+        const path = receivedError.errors[i].path
+        const msg = receivedError.errors[i].message
+        errorMessages[path] = msg
     }
     return errorMessages
 }
