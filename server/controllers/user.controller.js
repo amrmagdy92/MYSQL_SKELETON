@@ -35,7 +35,17 @@ const list = (req, res) => {
         .catch(err => res.json(getErrorMessage(err)))
 }
 const update = () => {}
-const remove = () => {}
+const remove = async (req, res) => {
+    var userID
+
+    await userSchema.findAll({ attributes: ["id"], where: { id: req.params.id } })
+        .then( foundID => userID = foundID[0].id )
+        .catch(err => res.json(getErrorMessage(err)))
+
+    userSchema.destroy({ where: { id: userID } })
+        .then( () => {res.json({msg: `The user with ID ${userID} has been deleted successfully.`})})
+        .catch(err => console.log(err))
+}
 
 export {
     create,
