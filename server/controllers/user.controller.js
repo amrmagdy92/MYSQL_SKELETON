@@ -27,9 +27,13 @@ const read = (req, res) => {
         .catch(err => res.json(getErrorMessage(err)))
 }
 const list = (req, res) => {
+    const pageNumber = req.body.pageNumber? req.body.pageNumber : 1
+    const resultsPerPage = req.body.resultsPerPage
     userSchema
         .findAll({
             attributes: ["id","firstName", "lastName", "email", "phone"],
+            limit: resultsPerPage,
+            offset: resultsPerPage * pageNumber
         })
         .then( user => {
             if (user.length > 0) {
