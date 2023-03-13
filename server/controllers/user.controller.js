@@ -17,7 +17,18 @@ const create = (req, res) => {
             res.json({ errors })
         })
 }
-const read = () => {}
+const read = (req, res) => {
+    const userID = req.params.id
+    userSchema
+        .findAll({
+            attributes: ["firstName", "lastName", "email", "phone"],
+            where: {
+                id: userID
+            }
+        })
+        .then( user => res.json(user))
+        .catch(err => res.json(getErrorMessage(err)))
+}
 const list = () => {}
 const update = () => {}
 const remove = () => {}
