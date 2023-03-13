@@ -16,7 +16,15 @@ function makeSalt () {
     return Math.round(new Date().valueOf() * Math.random()).toString()
 }
 
+function computeFullName (user) {
+    return {
+        ...user,
+        fullName: `${user.firstName} ${user.lastName}`
+    }
+}
+
 export default {
     encryptPassword,
-    makeSalt
+    makeSalt,
+    computeFullName
 }
