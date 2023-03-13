@@ -44,7 +44,29 @@ const list = (req, res) => {
         })
         .catch(err => res.json(getErrorMessage(err)))
 }
-const update = () => {}
+const update = async (req, res) => {
+    var user
+
+    await userSchema.findAll({ attributes: ["firstName", "lastName", "email", "phone", "salt"], where: { id: req.params.id } })
+        .then( foundUser => {
+            if (foundUser.length != 0) {
+                user = foundUser[0]
+            } else res.json({ msg: `The given id '${req.params.id}' was not found`})
+        })
+        .catch(err => res.json(getErrorMessage(err)))
+
+    if (user != undefined) {
+        req.body.user.firstName? user.firstName = req.body.user.firstName : null
+        req.body.user.lastName? user.lastName = req.body.user.lastName : null
+        req.body.user.email? user.email = req.body.user.email : null
+        req.body.user.phone? user.phone = req.body.user.phone : null
+        req.body.user.password? user.hashedPassword = encryptPassword(req.body.user.password, user.salt): null
+    }
+    
+    userSchema.update(user, { where: { id: req.params.id } })
+        .then( () => res.json({ msg: `The user ${req.params.id} has been updated successfully`}))
+        .catch(err => res.json(getErrorMessage(err)))
+}
 const remove = async (req, res) => {
     var userID
 
