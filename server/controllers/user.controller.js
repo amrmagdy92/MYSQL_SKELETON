@@ -18,7 +18,7 @@ const read = (req, res) => {
     const userID = req.params.id
     userSchema
         .findAll({
-            attributes: ["firstName", "lastName", "email", "phone"],
+            attributes: ["id","firstName", "lastName", "email", "phone"],
             where: {
                 id: userID
             }
@@ -29,7 +29,7 @@ const read = (req, res) => {
 const list = (req, res) => {
     userSchema
         .findAll({
-            attributes: ["firstName", "lastName", "email", "phone"]
+            attributes: ["id","firstName", "lastName", "email", "phone"],
         })
         .then( user => res.json(user))
         .catch(err => res.json(getErrorMessage(err)))
