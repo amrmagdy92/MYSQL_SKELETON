@@ -39,12 +39,16 @@ const remove = async (req, res) => {
     var userID
 
     await userSchema.findAll({ attributes: ["id"], where: { id: req.params.id } })
-        .then( foundID => userID = foundID[0].id )
+        .then( foundID => {
+            if (foundID.length != 0) {
+                userID = foundID[0].id
+            } else res.json({ msg: `The given id '${req.params.id}' was not found`})
+        })
         .catch(err => res.json(getErrorMessage(err)))
 
     userSchema.destroy({ where: { id: userID } })
         .then( () => {res.json({msg: `The user with ID ${userID} has been deleted successfully.`})})
-        .catch(err => console.log(err))
+        .catch(err => res.json(getErrorMessage(err)))
 }
 
 export {
