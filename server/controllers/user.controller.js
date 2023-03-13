@@ -31,7 +31,13 @@ const list = (req, res) => {
         .findAll({
             attributes: ["id","firstName", "lastName", "email", "phone"],
         })
-        .then( user => res.json(user))
+        .then( user => {
+            if (user.length > 0) {
+                res.json(user)
+            } else {
+                res.json({ msg: 'No users where found.'})
+            }
+        })
         .catch(err => res.json(getErrorMessage(err)))
 }
 const update = () => {}
