@@ -1,18 +1,20 @@
 import userSchema from "../models/user.model"
-import userHelpers from "../helpers/user.helpers"
+import { makeSalt, computeFullName, encryptPassword } from "../helpers/user.helpers"
+import { getErrorMessage } from "../helpers/db.helpers"
 
 const create = (req, res) => {
     var user = req.body.user
-    user.salt = userHelpers.makeSalt()
-    user = userHelpers.computeFullName(user)
-    user.hashedPassword = userHelpers.encryptPassword(user.password, user.salt)
+    user.salt = makeSalt()
+    user = computeFullName(user)
+    user.hashedPassword = encryptPassword(user.password, user.salt)
     userSchema
         .create(user)
         .then(() => {
             res.json({msg: `The user ${req.body.user.firstName} ${req.body.user.lastName} was created successfully`})
         })
         .catch((err) => {
-            res.json({ msg: err })
+            const errors = getErrorMessage(err)
+            res.json({ errors })
         })
 }
 const read = () => {}
