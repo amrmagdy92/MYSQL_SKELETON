@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize"
 
-import sequelize from "../helpers/db.init"
+import sequelize from "../helpers/db.helpers"
 
 const userSchema = sequelize.define('User', {
     firstName: {
