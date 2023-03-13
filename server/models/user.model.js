@@ -57,6 +57,9 @@ const userSchema = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false
     }
+},
+{
+    paranoid: true
 })
 
 export default userSchema
