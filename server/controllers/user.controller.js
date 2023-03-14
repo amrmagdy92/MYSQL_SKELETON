@@ -28,7 +28,7 @@ const read = (req, res) => {
 }
 const list = (req, res) => {
     const pageNumber = req.body.pageNumber? req.body.pageNumber : 1
-    const resultsPerPage = req.body.resultsPerPage
+    const resultsPerPage = req.body.resultsPerPage? req.body.resultsPerPage: 100
     userSchema
         .findAll({
             attributes: ["id","firstName", "lastName", "email", "phone"],
