@@ -34,12 +34,12 @@ if (config.multiCore) {
             console.log(`Worker #${worker.process.pid} has died with code(${code}) and signal(${signal}).\nRestarting...`)
         })
     } else {
-        http.createServer(app).listen(process.env.PORT, () => {
-            console.log(`Server started on worker ${process.pid} and listening on port ${process.env.PORT}`)
+        http.createServer(app).listen(process.env.SERVER_PORT, () => {
+            console.log(`Server started on worker ${process.pid} and listening on port ${process.env.SERVER_PORT}`)
         })
     }
 } else {
-    http.createServer(app).listen(process.env.PORT, (worker) => {
-        console.log(`Server started and listening on port ${process.env.PORT}`)
+    http.createServer(app).listen(process.env.SERVER_PORT, (worker) => {
+        console.log(`Server started and listening on port ${process.env.SERVER_PORT}`)
     })
 }
