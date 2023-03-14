@@ -1,6 +1,6 @@
 import userModel from "../models/user.model"
 import jwt from "jsonwebtoken"
-import expressJwt from "express-jwt"
+import { expressjwt } from "express-jwt"
 import isEmail from "isemail"
 import config from "../config/server.conf"
 import { getErrorMessage } from "../helpers/db.helpers"
@@ -43,9 +43,10 @@ const signout = (req, res) => {
     res.clearCookie('t')
     res.status(200).json({ msg: "Signed out" })
 }
-const requireSignin = expressJwt({
+const requireSignin = expressjwt({
     secret: config.jwtSecret,
-    userProperty: 'auth'
+    userProperty: 'auth',
+    algorithms: ["HS256"]
 })
 const hasAuthorization = (req, res, next) => {
     const authorized = req.user && req.auth && req.body.user.id == req.auth.id
