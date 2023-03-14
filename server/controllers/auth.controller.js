@@ -39,7 +39,10 @@ const signin = (req, res) => {
         res.status(401).json({ msg: "Could not sign in" })
     }
 }
-const signout = () => {}
+const signout = (req, res) => {
+    res.clearCookie('t')
+    res.status(200).json({ msg: "Signed out" })
+}
 const requireSignin = true
 const hasAuthorization = () => {}
 
