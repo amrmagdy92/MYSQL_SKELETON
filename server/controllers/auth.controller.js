@@ -43,7 +43,10 @@ const signout = (req, res) => {
     res.clearCookie('t')
     res.status(200).json({ msg: "Signed out" })
 }
-const requireSignin = true
+const requireSignin = expressJwt({
+    secret: config.jwtSecret,
+    userProperty: 'auth'
+})
 const hasAuthorization = () => {}
 
 export { signin, signout, hasAuthorization, requireSignin }
