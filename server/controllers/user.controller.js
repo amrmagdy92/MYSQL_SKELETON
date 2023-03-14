@@ -27,7 +27,7 @@ const read = (req, res) => {
         .catch(err => res.json(getErrorMessage(err)))
 }
 const list = (req, res) => {
-    const pageNumber = req.body.pageNumber? req.body.pageNumber : 1
+    const pageNumber = req.body.pageNumber? req.body.pageNumber : 0
     const resultsPerPage = req.body.resultsPerPage? req.body.resultsPerPage: 100
     userSchema
         .findAll({
