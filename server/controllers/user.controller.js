@@ -39,7 +39,7 @@ const list = (req, res) => {
             if (user.length > 0) {
                 res.json(user)
             } else {
-                res.json({ msg: 'No users where found.'})
+                res.json({ msg: 'No users were found.'})
             }
         })
         .catch(err => res.json(getErrorMessage(err)))
