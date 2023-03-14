@@ -47,6 +47,9 @@ const requireSignin = expressJwt({
     secret: config.jwtSecret,
     userProperty: 'auth'
 })
-const hasAuthorization = () => {}
+const hasAuthorization = (req, res, next) => {
+    const authorized = req.user && req.auth && req.body.user.id == req.auth.id
+    if(!authorized) res.status(403).json({ msg: "User is not authorized" })
+}
 
 export { signin, signout, hasAuthorization, requireSignin }
