@@ -26,7 +26,15 @@ const messageSchema = sequelize.define('message', {
     messageType: {
         type: DataTypes.ENUM("GIF", "TEXT", "VIDEO", "PIC"),
         allowNull: false
-        // TODO: Add reference to message content to retrieve it from the specified table
+    },
+    messageContentID: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+            isNumeric: {
+                msg: "Message content ID must be an Integer"
+            }
+        }
     },
     sentDatetime: {
         type: DataTypes.DATE,
