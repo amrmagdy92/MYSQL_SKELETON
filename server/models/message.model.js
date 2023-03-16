@@ -1,6 +1,7 @@
 import { DataTypes, Sequelize } from "sequelize"
 
 import { sequelize } from "../helpers/db.helpers"
+import messageContentSchema from "./msgContent.model"
 
 const messageSchema = sequelize.define('message', {
     sender: {
@@ -43,6 +44,10 @@ const messageSchema = sequelize.define('message', {
     }
 }, {
     paranoid: true
+})
+
+messageSchema.hasOne(messageContentSchema, {
+    foreignKey: "messageContentID"
 })
 
 export default messageSchema
