@@ -42,8 +42,8 @@ const list = (req, res) => {
         })
         .catch(err => res.json(getErrorMessage(err)))
 }
-const read = () => {}
-const update = () => {}
+const read = () => {} // TODO: Need to check if this function makes any sense
+const update = () => {} // TODO: Need to check if this function makes any sense
 const remove = () => {}
 
 export {
