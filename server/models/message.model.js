@@ -24,10 +24,6 @@ const messageSchema = sequelize.define('message', {
             }
         }
     },
-    messageType: {
-        type: DataTypes.ENUM("GIF", "TEXT", "VIDEO", "PIC"),
-        allowNull: false
-    },
     messageData: {
         type: DataTypes.BLOB,
         allowNull: true
