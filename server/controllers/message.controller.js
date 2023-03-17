@@ -20,7 +20,28 @@ const create = (req, res) => {
             .catch( (err) =>  res.json(getErrorMessage(err)) )
     }
 }
-const list = () => {}
+const list = (req, res) => {
+    const pageNumber = req.body.pageNumber? req.body.pageNumber : 0
+    const resultsPerPage = req.body.resultsPerPage? req.body.resultsPerPage: 10
+    messageSchema
+        .findAll({
+            attributes: ["sender","recepient", "messageData", "messageText", "sentDatetime"],
+            where: {
+                senderID: req.body.senderID,
+                recepientID: req.body.recepientID
+            },
+            limit: resultsPerPage,
+            offset: resultsPerPage * pageNumber
+        })
+        .then( msg => {
+            if (msg.length > 0) {
+                res.json(msg)
+            } else {
+                res.json({ msg: 'No messages were found.'})
+            }
+        })
+        .catch(err => res.json(getErrorMessage(err)))
+}
 const read = () => {}
 const update = () => {}
 const remove = () => {}
