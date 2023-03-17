@@ -56,15 +56,6 @@ const userSchema = sequelize.define('User', {
     salt: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    userFolder: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-            isUrl: {
-                msg: "The provided url is not valid"
-            }
-        }
     }
 },
 {
