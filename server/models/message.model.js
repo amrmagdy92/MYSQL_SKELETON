@@ -1,7 +1,6 @@
 import { DataTypes, Sequelize } from "sequelize"
 
 import { sequelize } from "../helpers/db.helpers"
-import messageContentSchema from "./msgContent.model"
 
 const messageSchema = sequelize.define('message', {
     senderID: {
