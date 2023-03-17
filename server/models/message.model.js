@@ -28,14 +28,13 @@ const messageSchema = sequelize.define('message', {
         type: DataTypes.ENUM("GIF", "TEXT", "VIDEO", "PIC"),
         allowNull: false
     },
-    messageContentID: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        validate: {
-            isNumeric: {
-                msg: "Message content ID must be an Integer"
-            }
-        }
+    messageData: {
+        type: DataTypes.BLOB,
+        allowNull: true
+    },
+    messageText: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
     sentDatetime: {
         type: DataTypes.DATE,
@@ -44,10 +43,6 @@ const messageSchema = sequelize.define('message', {
     }
 }, {
     paranoid: true
-})
-
-messageSchema.hasOne(messageContentSchema, {
-    foreignKey: "messageContentID"
 })
 
 export default messageSchema
