@@ -33,15 +33,32 @@ const create = async (req, res) => {
             .catch( (err) =>  res.json(getErrorMessage(err)) )
     }
 }
-const list = (req, res) => {
+const list = async (req, res) => {
     const pageNumber = req.body.pageNumber? req.body.pageNumber : 0
     const resultsPerPage = req.body.resultsPerPage? req.body.resultsPerPage: 10
+
+    var senderID
+    var recepientID
+    var msgValidator = {}
+
+    req.body.sender? null : msgValidator.sender = "A sender is required to search with"
+    req.body.recepient? null : msgValidator.recepient = "A recepient is required to search with"
+
+    if (msgValidator.length > 0) console.log(msgValidator)
+    
+    await userSchema.findAll({ attributes: ["id"], where: { phone: req.body.sender } })
+        .then( user => { senderID = user[0].id })
+        .catch(err => res.json(getErrorMessage(err)))
+    await userSchema.findAll({ attributes: ["id"], where: { phone: req.body.recepient } })
+        .then( user => { recepientID = user[0].id })
+        .catch(err => res.json(getErrorMessage(err)))
+
     messageSchema
         .findAll({
             attributes: ["sender","recepient", "messageData", "messageText", "sentDatetime"],
             where: {
-                senderID: req.body.message.sender,
-                recepientID: req.body.message.recepient
+                sender: req.body.sender,
+                recepient : req.body.recepient
             },
             limit: resultsPerPage,
             offset: resultsPerPage * pageNumber
