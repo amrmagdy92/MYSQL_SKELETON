@@ -9,9 +9,9 @@ const create = (req, res) => {
     req.body.message.recepient? msg.recepient = req.body.message.recepient : msgValidator.recepient = "A recepient is required"
     req.body.message.messageData? msg.messageData = req.body.message.messageData : null
     req.body.message.messageText? msg.messageText = req.body.message.messageText : null
-    req.body.message.sentDatetime? msg.sentDatetime = req.body.message.sentDatetime : msgValidator.sentDatetime = "Sent time is required"
+    req.body.message.sentDatetime? msg.sentDatetime = req.body.message.sentDatetime : msg.sentDatetime = Date.now()
 
-    if (msgValidator.keys.length > 0) {
+    if (msgValidator.length > 0) {
         res.json(msgValidator)
     } else {
         messageSchema
@@ -27,8 +27,8 @@ const list = (req, res) => {
         .findAll({
             attributes: ["sender","recepient", "messageData", "messageText", "sentDatetime"],
             where: {
-                senderID: req.body.senderID,
-                recepientID: req.body.recepientID
+                senderID: req.body.message.sender,
+                recepientID: req.body.message.recepient
             },
             limit: resultsPerPage,
             offset: resultsPerPage * pageNumber
