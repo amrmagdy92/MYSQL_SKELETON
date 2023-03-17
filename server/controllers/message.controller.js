@@ -44,7 +44,23 @@ const list = (req, res) => {
 }
 const read = () => {} // TODO: Need to check if this function makes any sense
 const update = () => {} // TODO: Need to check if this function makes any sense
-const remove = () => {}
+const remove = async (req, res) => {
+    var msgID
+
+    await messageSchema.findAll({ attributes: ["id"], where: { id: req.params.id } })
+        .then( foundID => {
+            if (foundID.length != 0) {
+                msgID = foundID[0].id
+            } else res.json({ msg: `The given id '${req.params.id}' was not found`})
+        })
+        .catch(err => res.json(getErrorMessage(err)))
+
+    if (msgID) {
+        userSchema.destroy({ where: { id: msgID } })
+            .then( () => {res.json({msg: `The message with ID ${msgID} has been deleted successfully.`})})
+            .catch(err => res.json(getErrorMessage(err)))
+    }
+}
 
 export {
     create,
