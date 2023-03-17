@@ -44,6 +44,13 @@ git remote remove origin
 git remote add origin "PATH_TO_YOUR_GITHUB_REPOSITORY"
 git push -u origin master
 ```
+or if you're on windows and using power shell use the below block of code
+```
+npm install
+remove-item .\.git\ -force
+git remote add origin "PATH_TO_YOUR_GITHUB_REPOSITORY"
+git push -u origin master
+```
 4. Go to ```SOLUTION_PATH/server/models/user.model.js``` and update the model as needed according to your design.
 5. Start building the rest of your solution.
 
