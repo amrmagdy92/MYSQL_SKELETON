@@ -1,11 +1,11 @@
 {
-  "name": "pure_skeleton",
+  "name": "chat_platform",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "development": "nodemon",
+    "dev": "nodemon",
     "build": "webpack --mode=production --config webpack.config.server.js",
     "start": "NODE_ENV=production node ./dist/server.generated.js"
   },
