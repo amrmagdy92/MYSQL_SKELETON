@@ -4,6 +4,14 @@ import { sequelize } from "../helpers/db.helpers"
 import messageContentSchema from "./msgContent.model"
 
 const messageSchema = sequelize.define('message', {
+    senderID: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    recepientID: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     sender: {
         type: DataTypes.STRING,
         allowNull: false,
