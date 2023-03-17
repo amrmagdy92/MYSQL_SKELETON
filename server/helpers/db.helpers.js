@@ -20,7 +20,7 @@ sequelize
 
 const getErrorMessage = (receivedError) => {
     const errorMessages = {}
-    for (let i = 0; i < receivedError.errors; i++) {
+    for (let i = 0; i < Object.keys(receivedError).length; i++) {
         const path = receivedError.errors[i].path
         const msg = receivedError.errors[i].message
         errorMessages[path] = msg
