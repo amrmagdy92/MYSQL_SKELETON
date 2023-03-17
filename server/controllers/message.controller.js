@@ -41,10 +41,12 @@ const list = async (req, res) => {
     var recepientID
     var msgValidator = {}
 
-    req.body.sender? null : msgValidator.sender = "A sender is required to search with"
-    req.body.recepient? null : msgValidator.recepient = "A recepient is required to search with"
+    !req.body.sender? msgValidator.sender = "A sender is required to search with" : null
+    !req.body.recepient? msgValidator.recepient = "A recepient is required to search with" : null
 
-    if (msgValidator.length > 0) console.log(msgValidator)
+    if (Object.keys(msgValidator).length > 0) {
+        return res.json(msgValidator)
+    }
     
     await userSchema.findAll({ attributes: ["id"], where: { phone: req.body.sender } })
         .then( user => { senderID = user[0].id })
