@@ -1,15 +1,28 @@
+import userSchema from "../models/user.model"
 import messageSchema from "../models/message.model"
 import { getErrorMessage } from "../helpers/db.helpers"
 
-const create = (req, res) => {
+const create = async (req, res) => {
     var msg = {}
     var msgValidator = {}
+    var senderID
+    var recepientID
+    
+    await userSchema.findAll({ attributes: ["id"], where: { phone: req.body.message.sender } })
+        .then( user => { senderID = user[0].id })
+        .catch( (err) =>  res.json(getErrorMessage(err)) )
+    await userSchema.findAll({ attributes: ["id"], where: { phone: req.body.message.recepient } })
+        .then( user => { recepientID = user[0].id })
+        .catch( (err) =>  res.json(getErrorMessage(err)) )
 
     req.body.message.sender? msg.sender = req.body.message.sender : msgValidator.sender = "A sender is required"
     req.body.message.recepient? msg.recepient = req.body.message.recepient : msgValidator.recepient = "A recepient is required"
     req.body.message.messageData? msg.messageData = req.body.message.messageData : null
     req.body.message.messageText? msg.messageText = req.body.message.messageText : null
     req.body.message.sentDatetime? msg.sentDatetime = req.body.message.sentDatetime : msg.sentDatetime = Date.now()
+
+    msg.senderID = senderID
+    msg.recepientID = recepientID
 
     if (msgValidator.length > 0) {
         res.json(msgValidator)
