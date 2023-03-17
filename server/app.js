@@ -8,6 +8,7 @@ import helmet from "helmet"
 
 import userRouter from "./routes/user.routes"
 import authRouter from "./routes/auth.routes"
+import messageRouter from "./routes/message.route"
 
 dotenv.config()
 
@@ -31,6 +32,7 @@ app.use((err, req, res, next) => {
 })
 
 app.use('/api/v1/users', userRouter)
+app.use('/api/v1/messages', messageRouter)
 app.use('/', authRouter)
 
 export default app
