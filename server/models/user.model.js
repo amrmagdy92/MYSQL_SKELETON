@@ -28,10 +28,9 @@ const userSchema = sequelize.define('User', {
     email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
         validate: {
             isEmail: {
-                msg: "Name can only contain letters"
+                msg: "Email doesn't match the example@exmaple.ex"
             }
         }
     },
@@ -59,7 +58,8 @@ const userSchema = sequelize.define('User', {
     }
 },
 {
-    paranoid: true
+    paranoid: true,
+    indexes: [ { fields: ['email'], unique: true } ]
 })
 
 export default userSchema
