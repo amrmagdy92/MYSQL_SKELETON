@@ -13,12 +13,19 @@ dotenv.config()
 
 const app = express()
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(cookieParser())
-app.use(compress())
-app.use(helmet())
-app.use(cors())
+const configuredBodyParserJSON = bodyParser.json()
+const configuredBodyParserURL = bodyParser.urlencoded({ extended: true })
+const configuredCookieParser = cookieParser()
+const configuredCompression = compress()
+const configuredHelmet = helmet()
+const configuredCors = cors({ origin: process.env.ORIGIN_URL })
+
+app.use(configuredBodyParserJSON)
+app.use(configuredBodyParserURL)
+app.use(configuredCookieParser)
+app.use(configuredCompression)
+app.use(configuredHelmet)
+app.use(configuredCors)
 
 // TODO: Add better UX when handling this error
 app.use((err, req, res, next) => {
